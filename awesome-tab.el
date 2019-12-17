@@ -270,9 +270,9 @@ The following scopes are possible:
     Navigate through visible tabs, then through tab groups."
   :group 'awesome-tab
   :type '(choice :tag "Cycle through..."
-          (const :tag "Visible Tabs Only" tabs)
-          (const :tag "Tab Groups Only" groups)
-          (const :tag "Visible Tabs then Tab Groups" nil)))
+           (const :tag "Visible Tabs Only" tabs)
+           (const :tag "Tab Groups Only" groups)
+           (const :tag "Visible Tabs then Tab Groups" nil)))
 
 (defcustom awesome-tab-auto-scroll-flag t
   "*Non-nil means to automatically scroll the tab bar.
@@ -402,9 +402,9 @@ group.  Notice that it is better that a buffer belongs to one group.")
 ;;
 (eval-and-compile
   (defalias 'awesome-tab-display-update
-      (if (fboundp 'force-window-update)
-          #'(lambda () (force-window-update (selected-window)))
-        'force-mode-line-update)))
+    (if (fboundp 'force-window-update)
+        #'(lambda () (force-window-update (selected-window)))
+      'force-mode-line-update)))
 
 ;; Copied from s.el
 (defun awesome-tab-truncate-string (len s &optional ellipsis)
@@ -478,18 +478,18 @@ You should use this hook to reset dependent data.")
 ;; variables and those of the callee.
 (eval-and-compile
   (defalias 'awesome-tab-map-tabsets
-      (let ((function (make-symbol "function"))
-            (result   (make-symbol "result"))
-            (tabset   (make-symbol "tabset")))
-        `(lambda (,function)
-           "Apply FUNCTION to each tab set, and make a list of the results.
+    (let ((function (make-symbol "function"))
+          (result   (make-symbol "result"))
+          (tabset   (make-symbol "tabset")))
+      `(lambda (,function)
+         "Apply FUNCTION to each tab set, and make a list of the results.
 The result is a list just as long as the number of existing tab sets."
-           (let (,result)
-             (mapatoms
-              #'(lambda (,tabset)
-                  (push (funcall ,function ,tabset) ,result))
-              awesome-tab-tabsets)
-             ,result)))))
+         (let (,result)
+           (mapatoms
+            #'(lambda (,tabset)
+                (push (funcall ,function ,tabset) ,result))
+            awesome-tab-tabsets)
+           ,result)))))
 
 (defun awesome-tab-make-tabset (name &rest objects)
   "Make a new tab set whose name is the string NAME.
@@ -659,22 +659,22 @@ current cached copy."
 ;;
 
 (defface awesome-tab-unselected
-    '((t))
+  '((t))
   "Face used for unselected tabs."
   :group 'awesome-tab)
 
 (defface awesome-tab-selected
-    '((t))
+  '((t))
   "Face used for the selected tab."
   :group 'awesome-tab)
 
 (defface awesome-tab-unselected-ace-str
-    '((t))
+  '((t))
   "Face used for ace string on unselected tabs."
   :group 'awesome-tab)
 
 (defface awesome-tab-selected-ace-str
-    '((t))
+  '((t))
   "Face used for ace string on selected tabs."
   :group 'awesome-tab)
 
@@ -708,13 +708,13 @@ influence of C1 on the result."
          (bg-unspecified (string= (face-background 'default) "unspecified-bg"))
          (fg-unspecified (string= (face-foreground 'default) "unspecified-fg"))
          (fg (cond
-               ((and fg-unspecified (eq bg-mode 'dark)) "gray80")
-               ((and fg-unspecified (eq bg-mode 'light)) "gray20")
-               (t (face-foreground 'default))))
+              ((and fg-unspecified (eq bg-mode 'dark)) "gray80")
+              ((and fg-unspecified (eq bg-mode 'light)) "gray20")
+              (t (face-foreground 'default))))
          (bg (cond
-               ((and bg-unspecified (eq bg-mode 'dark)) "gray20")
-               ((and bg-unspecified (eq bg-mode 'light)) "gray80")
-               (t (face-background 'default))))
+              ((and bg-unspecified (eq bg-mode 'dark)) "gray20")
+              ((and bg-unspecified (eq bg-mode 'light)) "gray80")
+              (t (face-background 'default))))
          ;; Ace string foreground.
          (ace-str-foreground (face-foreground 'font-lock-function-name-face))
          ;; for light themes
@@ -738,40 +738,40 @@ influence of C1 on the result."
     (awesome-tab-select-separator-style awesome-tab-style)
     ;; Make tab foreground change with theme.
     (cond
-      ((eq bg-mode 'dark)
-       (set-face-attribute 'awesome-tab-unselected nil
-                           :height awesome-tab-face-height
-                           :background bg-light
-                           :foreground fg-dark)
-       (set-face-attribute 'awesome-tab-selected nil
-                           :height awesome-tab-face-height
-                           :background bg-more-light
-                           :foreground fg-more-light)
-       (set-face-attribute 'awesome-tab-unselected-ace-str nil
-                           :height awesome-tab-face-height
-                           :background bg-light
-                           :foreground ace-str-foreground)
-       (set-face-attribute 'awesome-tab-selected-ace-str nil
-                           :height awesome-tab-face-height
-                           :background bg-more-light
-                           :foreground ace-str-foreground))
-      (t
-       (set-face-attribute 'awesome-tab-unselected nil
-                           :height awesome-tab-face-height
-                           :background bg-dark
-                           :foreground fg-light)
-       (set-face-attribute 'awesome-tab-selected nil
-                           :height awesome-tab-face-height
-                           :background bg-more-dark
-                           :foreground fg-more-dark)
-       (set-face-attribute 'awesome-tab-unselected-ace-str nil
-                           :height awesome-tab-face-height
-                           :background bg-dark
-                           :foreground ace-str-foreground)
-       (set-face-attribute 'awesome-tab-selected-ace-str nil
-                           :height awesome-tab-face-height
-                           :background bg-more-dark
-                           :foreground ace-str-foreground)))
+     ((eq bg-mode 'dark)
+      (set-face-attribute 'awesome-tab-unselected nil
+                          :height awesome-tab-face-height
+                          :background bg-light
+                          :foreground fg-dark)
+      (set-face-attribute 'awesome-tab-selected nil
+                          :height awesome-tab-face-height
+                          :background bg-more-light
+                          :foreground fg-more-light)
+      (set-face-attribute 'awesome-tab-unselected-ace-str nil
+                          :height awesome-tab-face-height
+                          :background bg-light
+                          :foreground ace-str-foreground)
+      (set-face-attribute 'awesome-tab-selected-ace-str nil
+                          :height awesome-tab-face-height
+                          :background bg-more-light
+                          :foreground ace-str-foreground))
+     (t
+      (set-face-attribute 'awesome-tab-unselected nil
+                          :height awesome-tab-face-height
+                          :background bg-dark
+                          :foreground fg-light)
+      (set-face-attribute 'awesome-tab-selected nil
+                          :height awesome-tab-face-height
+                          :background bg-more-dark
+                          :foreground fg-more-dark)
+      (set-face-attribute 'awesome-tab-unselected-ace-str nil
+                          :height awesome-tab-face-height
+                          :background bg-dark
+                          :foreground ace-str-foreground)
+      (set-face-attribute 'awesome-tab-selected-ace-str nil
+                          :height awesome-tab-face-height
+                          :background bg-more-dark
+                          :foreground ace-str-foreground)))
     ))
 
 (defun awesome-tab-line-format (tabset)
@@ -784,9 +784,9 @@ influence of C1 on the result."
          (bg-mode (frame-parameter nil 'background-mode))
          (bg-unspecified (string= (face-background 'default) "unspecified-bg"))
          (padcolor (cond
-                     ((and bg-unspecified (eq bg-mode 'dark)) "gray20")
-                     ((and bg-unspecified (eq bg-mode 'light)) "gray80")
-                     (t (face-background  'default))))
+                    ((and bg-unspecified (eq bg-mode 'dark)) "gray20")
+                    ((and bg-unspecified (eq bg-mode 'light)) "gray80")
+                    (t (face-background  'default))))
          atsel elts)
     ;; Track the selected tab to ensure it is always visible.
     (when awesome-tab--track-selected
@@ -838,13 +838,15 @@ influence of C1 on the result."
   "Return the header line templates that represent the tab bar.
 Inhibit display of the tab bar in current window `awesome-tab-hide-tab-function' return nil."
   (cond
-    ((awesome-tab-hide-tab-cached (current-buffer))
-     ;; Don't show the tab bar.
-     (setq header-line-format nil))
-    ((awesome-tab-current-tabset t)
-     ;; When available, use a cached tab bar value, else recompute it.
-     (or (awesome-tab-template awesome-tab-current-tabset)
-         (awesome-tab-line-format awesome-tab-current-tabset)))))
+   ((awesome-tab-hide-tab-cached (current-buffer))
+    ;; Don't show the tab bar.
+    (if (>= emacs-major-version 27)
+	(setq tab-line-format nil)
+      (setq header-line-format nil)))
+   ((awesome-tab-current-tabset t)
+    ;; When available, use a cached tab bar value, else recompute it.
+    (or (awesome-tab-template awesome-tab-current-tabset)
+        (awesome-tab-line-format awesome-tab-current-tabset)))))
 
 (defconst awesome-tab-header-line-format '(:eval (awesome-tab-line))
   "The tab bar header line format.")
@@ -869,40 +871,40 @@ instead."
     (when tabset
       (setq selected (awesome-tab-selected-tab tabset))
       (cond
-        ;; Cycle through visible tabs only.
-        ((eq cycle 'tabs)
-         (setq tab (awesome-tab-tab-next tabset selected backward))
-         ;; When there is no tab after/before the selected one, cycle
-         ;; to the first/last visible tab.
-         (unless tab
-           (setq tabset (awesome-tab-tabs tabset)
-                 tab (car (if backward (last tabset) tabset))))
-         )
-        ;; Cycle through tab groups only.
-        ((eq cycle 'groups)
-         (setq tab (awesome-tab-tab-next ttabset selected backward))
-         ;; When there is no group after/before the selected one, cycle
-         ;; to the first/last available group.
-         (unless tab
-           (setq tabset (awesome-tab-tabs ttabset)
-                 tab (car (if backward (last tabset) tabset))))
-         )
-        (t
-         ;; Cycle through visible tabs then tab groups.
-         (setq tab (awesome-tab-tab-next tabset selected backward))
-         ;; When there is no visible tab after/before the selected one,
-         ;; cycle to the next/previous available group.
-         (unless tab
-           (setq tab (awesome-tab-tab-next ttabset selected backward))
-           ;; When there is no next/previous group, cycle to the
-           ;; first/last available group.
-           (unless tab
-             (setq tabset (awesome-tab-tabs ttabset)
-                   tab (car (if backward (last tabset) tabset))))
-           ;; Select the first/last visible tab of the new group.
-           (setq tabset (awesome-tab-tabs (awesome-tab-tab-tabset tab))
-                 tab (car (if backward (last tabset) tabset))))
-         ))
+       ;; Cycle through visible tabs only.
+       ((eq cycle 'tabs)
+        (setq tab (awesome-tab-tab-next tabset selected backward))
+        ;; When there is no tab after/before the selected one, cycle
+        ;; to the first/last visible tab.
+        (unless tab
+          (setq tabset (awesome-tab-tabs tabset)
+                tab (car (if backward (last tabset) tabset))))
+        )
+       ;; Cycle through tab groups only.
+       ((eq cycle 'groups)
+        (setq tab (awesome-tab-tab-next ttabset selected backward))
+        ;; When there is no group after/before the selected one, cycle
+        ;; to the first/last available group.
+        (unless tab
+          (setq tabset (awesome-tab-tabs ttabset)
+                tab (car (if backward (last tabset) tabset))))
+        )
+       (t
+        ;; Cycle through visible tabs then tab groups.
+        (setq tab (awesome-tab-tab-next tabset selected backward))
+        ;; When there is no visible tab after/before the selected one,
+        ;; cycle to the next/previous available group.
+        (unless tab
+          (setq tab (awesome-tab-tab-next ttabset selected backward))
+          ;; When there is no next/previous group, cycle to the
+          ;; first/last available group.
+          (unless tab
+            (setq tabset (awesome-tab-tabs ttabset)
+                  tab (car (if backward (last tabset) tabset))))
+          ;; Select the first/last visible tab of the new group.
+          (setq tabset (awesome-tab-tabs (awesome-tab-tab-tabset tab))
+                tab (car (if backward (last tabset) tabset))))
+        ))
       (awesome-tab-buffer-select-tab tab))))
 
 ;;;###autoload
@@ -951,8 +953,12 @@ Depend on the setting of the option `awesome-tab-cycle-scope'."
 ;;
 (defsubst awesome-tab-mode-on-p ()
   "Return non-nil if Awesome-Tab mode is on."
-  (eq (default-value 'header-line-format)
-      awesome-tab-header-line-format))
+  (or (and (>= emacs-major-version 27)
+	   (eq (default-value 'tab-line-format)
+	       awesome-tab-header-line-format))
+      (and (< emacs-major-version 27)
+	   (eq (default-value 'header-line-format)
+	       awesome-tab-header-line-format))))
 
 ;;; Awesome-Tab mode
 ;;
@@ -978,13 +984,19 @@ Returns non-nil if the new state is enabled.
 ;;; ON
       (unless (awesome-tab-mode-on-p)
         ;; Save current default value of `header-line-format'.
-        (setq awesome-tab--global-hlf (default-value 'header-line-format))
+	(if (>= emacs-major-version 27)
+            (setq-default awesome-tab--global-hlf tab-line-format)
+	  (setq-default awesome-tab--global-hlf header-line-format))
         (awesome-tab-init-tabsets-store)
-        (setq-default header-line-format awesome-tab-header-line-format))
+	(if (>= emacs-major-version 27)
+            (setq-default tab-line-format awesome-tab-header-line-format)
+	  (setq-default header-line-format awesome-tab-header-line-format)))
 ;;; OFF
     (when (awesome-tab-mode-on-p)
       ;; Restore previous `header-line-format'.
-      (setq-default header-line-format awesome-tab--global-hlf)
+      (if (>= emacs-major-version 27)
+	  (setq-default tab-line-format awesome-tab--global-hlf)
+	(setq-default header-line-format awesome-tab--global-hlf))
       (awesome-tab-free-tabsets-store))
     ))
 
@@ -1011,11 +1023,11 @@ visiting a file.  The current buffer is always included."
    (delq nil
          (mapcar #'(lambda (b)
                      (cond
-                       ;; Always include the current buffer.
-                       ((eq (current-buffer) b) b)
-                       ((buffer-file-name b) b)
-                       ((char-equal ?\  (aref (buffer-name b) 0)) nil)
-                       ((buffer-live-p b) b)))
+		      ;; Always include the current buffer.
+		      ((eq (current-buffer) b) b)
+		      ((buffer-file-name b) b)
+		      ((char-equal ?\  (aref (buffer-name b) 0)) nil)
+		      ((buffer-live-p b) b)))
                  (buffer-list)))))
 
 (defun awesome-tab-buffer-mode-derived-p (mode parents)
@@ -1036,14 +1048,14 @@ visiting a file.  The current buffer is always included."
 Return the the first group where the current buffer is."
   (let ((bl (sort
              (mapcar
-              #'(lambda (b)
+	      #'(lambda (b)
                   (with-current-buffer b
                     (list (current-buffer)
                           (buffer-name)
                           (if awesome-tab-buffer-groups-function
-                              (funcall awesome-tab-buffer-groups-function)
+			      (funcall awesome-tab-buffer-groups-function)
                             '(awesome-tab-common-group-name)))))
-              (and awesome-tab-buffer-list-function
+	      (and awesome-tab-buffer-list-function
                    (funcall awesome-tab-buffer-list-function)))
              #'(lambda (e1 e2)
                  (string-lessp (nth 1 e1) (nth 1 e2))))))
@@ -1060,7 +1072,7 @@ Return the the first group where the current buffer is."
                   ;; group.  Update the tab set, and the display.
                   (awesome-tab-add-tab tabset (car e))
                   (awesome-tab-set-template tabset nil))
-              (awesome-tab-make-tabset g (car e))))))
+	      (awesome-tab-make-tabset g (car e))))))
       ;; Remove tabs for buffers not found in cache or moved to other
       ;; groups, and remove empty tabsets.
       (mapc 'awesome-tab-delete-tabset
@@ -1069,8 +1081,8 @@ Return the the first group where the current buffer is."
                  (dolist (tab (awesome-tab-tabs tabset))
                    (let ((e (assq (awesome-tab-tab-value tab) bl)))
                      (or (and e (memq tabset
-                                      (mapcar 'awesome-tab-get-tabset
-                                              (nth 2 e))))
+				      (mapcar 'awesome-tab-get-tabset
+					      (nth 2 e))))
                          (awesome-tab-delete-tab tab))))
                  ;; Return empty tab sets
                  (unless (awesome-tab-tabs tabset)
@@ -1168,7 +1180,7 @@ RED, GREEN and BLUE should be between 0.0 and 1.0, inclusive."
             (make-list (- total fill fade) 1))))
 
 (defun awesome-tab-separator-pattern-bindings-body (patterns height-exp pattern-height-sym
-                                                    second-pattern-height-sym)
+							     second-pattern-height-sym)
   "Create let-var bindings and a function body from PATTERNS.
 The `car' and `cdr' parts of the result can be passed to the
 function `awesome-tab-separator-wrap-defun' as its `let-vars' and `body' arguments,
@@ -1184,11 +1196,11 @@ for let-var binding variables."
          (reserve (+ (length header) (length footer) (length center))))
     (when pattern
       (cons `((,pattern-height-sym (max (- ,height-exp ,reserve) 0))
-              (,second-pattern-height-sym (/ ,pattern-height-sym 2))
-              (,pattern-height-sym ,(if second-pattern `(ceiling ,pattern-height-sym 2) `,pattern-height-sym)))
+	      (,second-pattern-height-sym (/ ,pattern-height-sym 2))
+	      (,pattern-height-sym ,(if second-pattern `(ceiling ,pattern-height-sym 2) `,pattern-height-sym)))
             (list (when header `(mapconcat 'identity ',header ""))
                   `(mapconcat 'identity
-                              (cl-subseq ',pattern 0 ,pattern-height-sym) "")
+			      (cl-subseq ',pattern 0 ,pattern-height-sym) "")
                   (when center `(mapconcat 'identity ',center ""))
                   (when second-pattern
                     `(mapconcat 'identity
@@ -1229,17 +1241,17 @@ destination color, and 2 is the interpolated color between 0 and 1."
                                                                     'pattern-height
                                                                     'second-pattern-height))
         (bindings-body-2x (awesome-tab-separator-pattern-bindings-body (nthcdr 5 patterns)
-                                                                       '(* height 2)
-                                                                       'pattern-height-2x
-                                                                       'second-pattern-height-2x)))
+								       '(* height 2)
+								       'pattern-height-2x
+								       'second-pattern-height-2x)))
     (awesome-tab-separator-wrap-defun name dir width
-                                      (append (car bindings-body) (car bindings-body-2x))
-                                      (cdr bindings-body) (cdr bindings-body-2x))))
+				      (append (car bindings-body) (car bindings-body-2x))
+				      (cdr bindings-body) (cdr bindings-body-2x))))
 
 (defun awesome-tab-separator-background-color (face)
   (face-attribute face
                   (if (face-attribute face :inverse-video nil 'default)
-                      :foreground
+		      :foreground
                     :background)
                   nil
                   'default))
@@ -1254,13 +1266,13 @@ destination color, and 2 is the interpolated color between 0 and 1."
          (unless height (setq height awesome-tab-height))
          (let* ,(append `((color1 (when ,src-face
                                     (awesome-tab-separator-hex-color (awesome-tab-separator-background-color ,src-face))))
-                           (color2 (when ,dst-face
-                                     (awesome-tab-separator-hex-color (awesome-tab-separator-background-color ,dst-face))))
+                          (color2 (when ,dst-face
+                                    (awesome-tab-separator-hex-color (awesome-tab-separator-background-color ,dst-face))))
                           (colori (when (and color1 color2) (awesome-tab-separator-interpolate color1 color2)))
                           (color1 (or color1 "None"))
                           (color2 (or color2 "None"))
                           (colori (or colori "None")))
-                 let-vars)
+			let-vars)
            (apply 'create-image
                   ,(append `(concat (format "/* XPM */ static char * %s_%s[] = { \"%s %s 3 1\", \"0 c %s\", \"1 c %s\", \"2 c %s\","
                                             ,(replace-regexp-in-string "-" "_" name)
@@ -1278,26 +1290,26 @@ destination color, and 2 is the interpolated color between 0 and 1."
                           ,dst-face)
                   ,(and body-2x
                         `(and (featurep 'mac)
-                              (list :data-2x
-                                    ,(append `(concat (format "/* XPM */ static char * %s_%s_2x[] = { \"%s %s 3 1\", \"0 c %s\", \"1 c %s\", \"2 c %s\","
-                                                              ,(replace-regexp-in-string "-" "_" name)
-                                                              (symbol-name ',dir)
-                                                              (* ,width 2)
-                                                              (* height 2)
-                                                              color1
-                                                              color2
-                                                              colori))
-                                             body-2x
-                                             '("};")))))))))))
+			      (list :data-2x
+                                ,(append `(concat (format "/* XPM */ static char * %s_%s_2x[] = { \"%s %s 3 1\", \"0 c %s\", \"1 c %s\", \"2 c %s\","
+                                                          ,(replace-regexp-in-string "-" "_" name)
+                                                          (symbol-name ',dir)
+                                                          (* ,width 2)
+                                                          (* height 2)
+                                                          color1
+                                                          color2
+                                                          colori))
+                                         body-2x
+                                         '("};")))))))))))
 
 (defmacro awesome-tab-separator-alternate (dir)
   "Generate an alternating pattern XPM function for DIR."
   (awesome-tab-separator-pattern-defun "alternate" dir 4
-                                       '((2 2 1 1)
+				       '((2 2 1 1)
                                          (0 0 2 2))
-                                       nil nil nil nil
-                                       ;; 2x
-                                       '((2 2 2 2 1 1 1 1)
+				       nil nil nil nil
+				       ;; 2x
+				       '((2 2 2 2 1 1 1 1)
                                          (2 2 2 2 1 1 1 1)
                                          (0 0 0 0 2 2 2 2)
                                          (0 0 0 0 2 2 2 2))))
@@ -1305,18 +1317,18 @@ destination color, and 2 is the interpolated color between 0 and 1."
 (defmacro awesome-tab-separator-bar (dir)
   "Generate a bar XPM function for DIR."
   (awesome-tab-separator-pattern-defun "bar" dir 2
-                                       '((2 2))))
+				       '((2 2))))
 
 (defmacro awesome-tab-separator-box (dir)
   "Generate a box XPM function for DIR."
   (awesome-tab-separator-pattern-defun "box" dir 2
-                                       '((0 0)
+				       '((0 0)
                                          (0 0)
                                          (1 1)
                                          (1 1))
-                                       nil nil nil nil
-                                       ;; 2x
-                                       '((0 0 0 0)
+				       nil nil nil nil
+				       ;; 2x
+				       '((0 0 0 0)
                                          (0 0 0 0)
                                          (0 0 0 0)
                                          (0 0 0 0)
@@ -1328,14 +1340,14 @@ destination color, and 2 is the interpolated color between 0 and 1."
 (defmacro awesome-tab-separator-chamfer (dir)
   "Generate a chamfer XPM function for DIR."
   (awesome-tab-separator-pattern-defun "chamfer" dir 3
-                                       '((0 0 0))
-                                       '((1 1 1)
+				       '((0 0 0))
+				       '((1 1 1)
                                          (0 1 1)
                                          (0 0 1))
-                                       nil nil nil
-                                       ;; 2x
-                                       '((0 0 0 0 0 0))
-                                       '((1 1 1 1 1 1)
+				       nil nil nil
+				       ;; 2x
+				       '((0 0 0 0 0 0))
+				       '((1 1 1 1 1 1)
                                          (0 1 1 1 1 1)
                                          (0 0 1 1 1 1)
                                          (0 0 0 1 1 1)
@@ -1345,17 +1357,17 @@ destination color, and 2 is the interpolated color between 0 and 1."
 (defmacro awesome-tab-separator-rounded (dir)
   "Generate a rounded XPM function for DIR."
   (awesome-tab-separator-pattern-defun "rounded" dir 6
-                                       '((0 0 0 0 0 0))
-                                       '((2 1 1 1 1 1)
+				       '((0 0 0 0 0 0))
+				       '((2 1 1 1 1 1)
                                          (0 0 2 1 1 1)
                                          (0 0 0 0 1 1)
                                          (0 0 0 0 2 1)
                                          (0 0 0 0 0 1)
                                          (0 0 0 0 0 2))
-                                       nil nil nil
-                                       ;; 2x
-                                       '((0 0 0 0 0 0 0 0 0 0 0 0))
-                                       '((1 1 1 1 1 1 1 1 1 1 1 1)
+				       nil nil nil
+				       ;; 2x
+				       '((0 0 0 0 0 0 0 0 0 0 0 0))
+				       '((1 1 1 1 1 1 1 1 1 1 1 1)
                                          (0 0 2 1 1 1 1 1 1 1 1 1)
                                          (0 0 0 0 1 1 1 1 1 1 1 1)
                                          (0 0 0 0 0 0 1 1 1 1 1 1)
@@ -1372,17 +1384,17 @@ destination color, and 2 is the interpolated color between 0 and 1."
   "Generate a slant XPM function for DIR."
   (let* ((row-modifier (if (eq dir 'left) 'identity 'reverse)))
     (awesome-tab-separator-wrap-defun "slant" dir 'width
-                                      '((width (1- (ceiling height 2))))
-                                      `((cl-loop for i from 0 to (1- height)
+				      '((width (1- (ceiling height 2))))
+				      `((cl-loop for i from 0 to (1- height)
                                                  concat (awesome-tab-separator-pattern-to-string (,row-modifier (awesome-tab-separator-row-pattern (/ i 2) width)))))
-                                      `((cl-loop for i from 0 to (1- (* height 2))
+				      `((cl-loop for i from 0 to (1- (* height 2))
                                                  concat (awesome-tab-separator-pattern-to-string (,row-modifier (awesome-tab-separator-row-pattern (/ i 2) (* width 2)))))))))
 
 (defmacro awesome-tab-separator-wave (dir)
   "Generate a wave XPM function for DIR."
   (awesome-tab-separator-pattern-defun "wave" dir 11
-                                       '((0 0 0 0 0 0 1 1 1 1 1))
-                                       '((2 1 1 1 1 1 1 1 1 1 1)
+				       '((0 0 0 0 0 0 1 1 1 1 1))
+				       '((2 1 1 1 1 1 1 1 1 1 1)
                                          (0 0 1 1 1 1 1 1 1 1 1)
                                          (0 0 0 1 1 1 1 1 1 1 1)
                                          (0 0 0 2 1 1 1 1 1 1 1)
@@ -1391,17 +1403,17 @@ destination color, and 2 is the interpolated color between 0 and 1."
                                          (0 0 0 0 0 1 1 1 1 1 1)
                                          (0 0 0 0 0 1 1 1 1 1 1)
                                          (0 0 0 0 0 2 1 1 1 1 1))
-                                       '((0 0 0 0 0 0 2 1 1 1 1)
+				       '((0 0 0 0 0 0 2 1 1 1 1)
                                          (0 0 0 0 0 0 0 1 1 1 1)
                                          (0 0 0 0 0 0 0 1 1 1 1)
                                          (0 0 0 0 0 0 0 2 1 1 1)
                                          (0 0 0 0 0 0 0 0 1 1 1)
                                          (0 0 0 0 0 0 0 0 2 1 1)
                                          (0 0 0 0 0 0 0 0 0 0 2))
-                                       nil nil
-                                       ;; 2x
-                                       '((0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1))
-                                       '((1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1)
+				       nil nil
+				       ;; 2x
+				       '((0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1))
+				       '((1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1)
                                          (0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1)
                                          (0 0 0 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1)
                                          (0 0 0 0 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1)
@@ -1419,7 +1431,7 @@ destination color, and 2 is the interpolated color between 0 and 1."
                                          (0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1)
                                          (0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1)
                                          (0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1))
-                                       '((0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1)
+				       '((0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1)
                                          (0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1)
                                          (0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1)
                                          (0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1)
@@ -1437,15 +1449,15 @@ destination color, and 2 is the interpolated color between 0 and 1."
 (defmacro awesome-tab-separator-zigzag (dir)
   "Generate a zigzag pattern XPM function for DIR."
   (awesome-tab-separator-pattern-defun "zigzag" dir 3
-                                       '((1 1 1)
+				       '((1 1 1)
                                          (0 1 1)
                                          (0 0 1)
                                          (0 0 0)
                                          (0 0 1)
                                          (0 1 1))
-                                       nil nil nil nil
-                                       ;; 2x
-                                       '((1 1 1 1 1 1)
+				       nil nil nil nil
+				       ;; 2x
+				       '((1 1 1 1 1 1)
                                          (0 1 1 1 1 1)
                                          (0 0 1 1 1 1)
                                          (0 0 0 1 1 1)
@@ -1473,8 +1485,8 @@ The memoization cache is frame-local."
     `(lambda (&rest args)
        ,(concat (documentation func) (format "\n(memoized function %s)" funcid))
        (let* ((cache (awesome-tab-separator-create-or-get-cache))
-              (key (cons ',funcid args))
-              (val (gethash key cache)))
+	      (key (cons ',funcid args))
+	      (val (gethash key cache)))
          (if val
              val
            (puthash key (apply ,func args) cache))))))
@@ -1530,8 +1542,8 @@ element."
                          'mouse-1
                          `(lambda (event) (interactive "e")
                             (select-window (window-at (cadr (mouse-position))
-                                                      (cddr (mouse-position))
-                                                      (car (mouse-position))))
+						      (cddr (mouse-position))
+						      (car (mouse-position))))
                             (awesome-tab-buffer-select-tab ',tab))))))
 
 (defun awesome-tab-buffer-tab-label (tab)
@@ -1542,9 +1554,9 @@ That is, a string used to represent it on the tab bar."
          (ace-str-face (if is-active-tab 'awesome-tab-selected-ace-str
                          'awesome-tab-unselected-ace-str))
          (current-buffer-index
-           (cl-position tab (awesome-tab-view awesome-tab-current-tabset)))
+          (cl-position tab (awesome-tab-view awesome-tab-current-tabset)))
          (ace-str (if awesome-tab-ace-state
-                      (elt ace-strs current-buffer-index) ""))
+		      (elt ace-strs current-buffer-index) ""))
          (ace-state awesome-tab-ace-state))
     (concat
      ;; Tab left edge.
@@ -1572,7 +1584,7 @@ Tab name will truncate if option `awesome-tab-truncate-string' big than zero."
           (let ((bufname (awesome-tab-buffer-name (car tab))))
             (if (> awesome-tab-label-fixed-length 0)
                 (awesome-tab-truncate-string  awesome-tab-label-fixed-length bufname)
-              bufname))))
+	      bufname))))
 
 (defun awesome-tab-icon-for-tab (tab face)
   "When tab buffer's file is exists, use `all-the-icons-icon-for-file' to fetch file icon.
@@ -1583,17 +1595,17 @@ Otherwise use `all-the-icons-icon-for-buffer' to fetch icon for buffer."
            (tab-file (buffer-file-name tab-buffer))
            (background (face-background face))
            (icon
-             (cond
-               ;; Use `all-the-icons-icon-for-file' if current file is exists.
-               ((and
-                 tab-file
-                 (file-exists-p tab-file))
-                (all-the-icons-icon-for-file tab-file :v-adjust awesome-tab-icon-v-adjust :height awesome-tab-icon-height))
-               ;; Use `all-the-icons-icon-for-mode' for current tab buffer at last.
-               (t
-                (with-current-buffer tab-buffer
-                  (all-the-icons-icon-for-mode major-mode :v-adjust awesome-tab-icon-v-adjust :height awesome-tab-icon-height)
-                  )))))
+            (cond
+             ;; Use `all-the-icons-icon-for-file' if current file is exists.
+             ((and
+               tab-file
+               (file-exists-p tab-file))
+              (all-the-icons-icon-for-file tab-file :v-adjust awesome-tab-icon-v-adjust :height awesome-tab-icon-height))
+             ;; Use `all-the-icons-icon-for-mode' for current tab buffer at last.
+             (t
+              (with-current-buffer tab-buffer
+                (all-the-icons-icon-for-mode major-mode :v-adjust awesome-tab-icon-v-adjust :height awesome-tab-icon-height)
+                )))))
       (when (and icon
                  ;; `get-text-property' need icon is string type.
                  (stringp icon))
@@ -1631,12 +1643,12 @@ Currently, this function is only use for option `awesome-tab-display-sticky-func
             (when (or
                    (not (boundp 'awesome-tab-last-sticky-func-name))
                    (not (equal func-name awesome-tab-last-sticky-func-name)))
-              (set (make-local-variable 'awesome-tab-last-sticky-func-name) func-name)
+	      (set (make-local-variable 'awesome-tab-last-sticky-func-name) func-name)
 
-              ;; Use `ignore-errors' avoid integerp error when execute `awesome-tab-line-format'.
-              (ignore-errors
+	      ;; Use `ignore-errors' avoid integerp error when execute `awesome-tab-line-format'.
+	      (ignore-errors
                 (awesome-tab-line-format awesome-tab-current-tabset))
-              ))))
+	      ))))
       (setq awesome-tab-last-scroll-y scroll-y))))
 
 (add-hook 'post-command-hook 'awesome-tab-monitor-window-scroll)
@@ -1644,9 +1656,9 @@ Currently, this function is only use for option `awesome-tab-display-sticky-func
 (defun awesome-tab-separator-render (item face)
   "Render ITEM using FACE."
   (cond
-    ((and (listp item) (eq 'image (car item)))
-     (propertize " " 'display item 'face face))
-    (t item)))
+   ((and (listp item) (eq 'image (car item)))
+    (propertize " " 'display item 'face face))
+   (t item)))
 
 (defun awesome-tab-buffer-select-tab (tab)
   "Select tab."
@@ -1663,7 +1675,10 @@ after the current buffer has been killed.  Try first the buffer in tab
 after the current one, then the buffer in tab before.  On success, put
 the sibling buffer in front of the buffer list, so it will be selected
 first."
-  (and (eq header-line-format awesome-tab-header-line-format)
+  (and (or (and (>= emacs-major-version 27)
+		(eq tab-line-format awesome-tab-header-line-format))
+	   (and (< emacs-major-version 27)
+		(eq header-line-format awesome-tab-header-line-format)))
        (eq awesome-tab-current-tabset-function 'awesome-tab-buffer-tabs)
        (eq (current-buffer) (window-buffer (selected-window)))
        (let ((bl (awesome-tab-tab-values (awesome-tab-current-tabset)))
@@ -1671,7 +1686,7 @@ first."
              found sibling)
          (while (and bl (not found))
            (if (eq b (car bl))
-               (setq found t)
+	       (setq found t)
              (setq sibling (car bl)))
            (setq bl (cdr bl)))
          (when (and (setq sibling (or (car bl) sibling))
@@ -1711,10 +1726,10 @@ Run as `awesome-tab-quit-hook'."
   (interactive)
   (let* ((tab-buffer-list (mapcar
                            #'(lambda (b)
-                               (with-current-buffer b
+			       (with-current-buffer b
                                  (list (current-buffer)
-                                       (buffer-name)
-                                       (funcall awesome-tab-buffer-groups-function) )))
+				       (buffer-name)
+				       (funcall awesome-tab-buffer-groups-function) )))
                            (funcall awesome-tab-buffer-list-function)))
          (groups (awesome-tab-get-groups))
          (group-name (or groupname (ido-completing-read "Groups: " groups))) )
@@ -1780,7 +1795,7 @@ Optional argument REVERSED default is move backward, if reversed is non-nil move
           (setq the-buffer (car old-bufs))
           (setq old-bufs (cdr old-bufs))
           (if old-bufs ; if this is false, then the current tab is the rightmost
-              (push (car old-bufs) new-bufs))
+	      (push (car old-bufs) new-bufs))
           (push the-buffer new-bufs)) ; this is the tab that was to be moved
       (error "Error: current buffer's name was not found in Awesome-Tab's buffer list."))
     (setq new-bufs (reverse new-bufs))
@@ -1801,8 +1816,8 @@ Optional argument REVERSED default is move backward, if reversed is non-nil move
       (setq not-yet-this-buf first-buf)
       (setq old-bufs (cdr old-bufs))
       (while (and
-              old-bufs
-              (not (string= (buffer-name) (format "%s" (car (car old-bufs))))))
+	      old-bufs
+	      (not (string= (buffer-name) (format "%s" (car (car old-bufs))))))
         (push not-yet-this-buf new-bufs)
         (setq not-yet-this-buf (car old-bufs))
         (setq old-bufs (cdr old-bufs)))
@@ -1823,7 +1838,7 @@ Optional argument REVERSED default is move backward, if reversed is non-nil move
   (let* ((bufset (awesome-tab-current-tabset t))
          (bufs (copy-sequence (awesome-tab-tabs bufset)))
          (current-tab-index
-           (cl-position (current-buffer) (mapcar #'car bufs)))
+          (cl-position (current-buffer) (mapcar #'car bufs)))
          (current-tab (elt bufs current-tab-index)))
     (setq bufs (delete current-tab bufs))
     (push current-tab bufs)
@@ -1901,7 +1916,7 @@ If `tab-index' is 0, select last tab."
     (switch-to-buffer
      (car
       (if (or (equal tab-index 0)
-              (> tab-index (length visible-tabs)))
+	      (> tab-index (length visible-tabs)))
           (car (last visible-tabs))
         (nth (- tab-index 1) visible-tabs))))))
 
@@ -1944,15 +1959,15 @@ tabs. NKEYS should be 1 or 2."
            (upper-bound visible-tabs-length)
            (ace-keys (length awesome-tab-ace-keys))
            (key-number (cond
-                         ((<= visible-tabs-length ace-keys) 1)
-                         ((<= visible-tabs-length (* ace-keys ace-keys)) 2)
-                         (t (error "Too many visible tabs. Put more keys into `awesome-tab-ace-keys'."))))
+                        ((<= visible-tabs-length ace-keys) 1)
+                        ((<= visible-tabs-length (* ace-keys ace-keys)) 2)
+                        (t (error "Too many visible tabs. Put more keys into `awesome-tab-ace-keys'."))))
            (visible-seqs
-             (cl-subseq
-              (symbol-value
-               (intern
-                (concat "awesome-tab-ace-" (number-to-string key-number) "-key-seqs")))
-              0 visible-tabs-length))
+            (cl-subseq
+             (symbol-value
+	      (intern
+               (concat "awesome-tab-ace-" (number-to-string key-number) "-key-seqs")))
+             0 visible-tabs-length))
            (ace-strs (awesome-tab-build-ace-strs visible-tabs-length key-number visible-seqs)))
       (setq awesome-tab-ace-state t)
       (awesome-tab-refresh-display)
@@ -1966,17 +1981,17 @@ tabs. NKEYS should be 1 or 2."
                     (setq lower-bound (cl-position char current-chars))
                     (setq upper-bound (1- (- visible-tabs-length (cl-position char (nreverse current-chars)))))
                     (dotimes (lower-index lower-bound)
-                      (setcar (nthcdr lower-index visible-seqs) nil))
+		      (setcar (nthcdr lower-index visible-seqs) nil))
                     (setq upper-index (1+ upper-bound))
                     (while (< upper-index visible-tabs-length)
-                      (setcar (nthcdr upper-index visible-seqs) nil)
-                      (setq upper-index (1+ upper-index)))
+		      (setcar (nthcdr upper-index visible-seqs) nil)
+		      (setq upper-index (1+ upper-index)))
                     (setq upper-index 0)
                     ))
-              ;; Quit when user press Ctrl + g.
-              (setq awesome-tab-ace-state nil)
-              (awesome-tab-refresh-display)
-              (throw 'quit nil))))
+	      ;; Quit when user press Ctrl + g.
+	      (setq awesome-tab-ace-state nil)
+	      (awesome-tab-refresh-display)
+	      (throw 'quit nil))))
         (setq done-flag nil)
         (setq visible-seqs (mapcar #'cdr visible-seqs))
         (setq ace-strs (awesome-tab-build-ace-strs visible-tabs-length key-number visible-seqs))
@@ -1990,7 +2005,7 @@ tabs. NKEYS should be 1 or 2."
   ;; Refresh groups.
   (set awesome-tab-tabsets-tabset (awesome-tab-map-tabsets 'awesome-tab-selected-tab))
   (mapcar #'(lambda (group)
-              (format "%s" (cdr group)))
+	      (format "%s" (cdr group)))
           (awesome-tab-tabs awesome-tab-tabsets-tabset)))
 
 (defun awesome-tab-get-extensions ()
@@ -1998,7 +2013,7 @@ tabs. NKEYS should be 1 or 2."
   (set awesome-tab-tabsets-tabset (awesome-tab-map-tabsets 'awesome-tab-selected-tab))
   (let ((extension-names '()))
     (mapc #'(lambda (buffer)
-              (with-current-buffer buffer
+	      (with-current-buffer buffer
                 (when (string-equal current-group-name (cdr (awesome-tab-selected-tab (awesome-tab-current-tabset t))))
                   (when (buffer-file-name buffer)
                     (add-to-list 'extension-names (file-name-extension (buffer-file-name buffer))))
@@ -2009,7 +2024,7 @@ tabs. NKEYS should be 1 or 2."
 (defmacro awesome-tab-kill-buffer-match-rule (match-rule)
   `(save-excursion
      (mapc #'(lambda (buffer)
-               (with-current-buffer buffer
+	       (with-current-buffer buffer
                  (when (string-equal current-group-name (cdr (awesome-tab-selected-tab (awesome-tab-current-tabset t))))
                    (when (funcall ,match-rule buffer)
                      (kill-buffer buffer))
@@ -2024,7 +2039,9 @@ tabs. NKEYS should be 1 or 2."
 (setq uniquify-after-kill-buffer-p t)
 
 (dolist (hook awesometab-hide-tabs-hooks)
-  (add-hook hook '(lambda () (setq-local header-line-format nil))))
+  (add-hook hook '(lambda () (if (>= emacs-major-version 27)
+			    (setq-local tab-line-format nil)
+			  (setq-local header-line-format nil)))))
 
 ;; Rules to control buffer's group rules.
 (defvar awesome-tab-groups-hash (make-hash-table :test 'equal))
@@ -2056,26 +2073,26 @@ All buffer name start with * will group to \"Emacs\".
 Other buffer group by `awesome-tab-get-group-name' with project name."
   (list
    (cond
-     ((or (string-equal "*" (substring (buffer-name) 0 1))
-          (memq major-mode '(magit-process-mode
-                             magit-status-mode
-                             magit-diff-mode
-                             magit-log-mode
-                             magit-file-mode
-                             magit-blob-mode
-                             magit-blame-mode
-                             )))
-      "Emacs")
-     ((derived-mode-p 'eshell-mode)
-      "EShell")
-     ((derived-mode-p 'emacs-lisp-mode)
-      "Elisp")
-     ((derived-mode-p 'dired-mode)
-      "Dired")
-     ((memq major-mode '(org-mode org-agenda-mode diary-mode))
-      "OrgMode")
-     (t
-      (awesome-tab-get-group-name (current-buffer))))))
+    ((or (string-equal "*" (substring (buffer-name) 0 1))
+         (memq major-mode '(magit-process-mode
+                            magit-status-mode
+                            magit-diff-mode
+                            magit-log-mode
+                            magit-file-mode
+                            magit-blob-mode
+                            magit-blame-mode
+                            )))
+     "Emacs")
+    ((derived-mode-p 'eshell-mode)
+     "EShell")
+    ((derived-mode-p 'emacs-lisp-mode)
+     "Elisp")
+    ((derived-mode-p 'dired-mode)
+     "Dired")
+    ((memq major-mode '(org-mode org-agenda-mode diary-mode))
+     "OrgMode")
+    (t
+     (awesome-tab-get-group-name (current-buffer))))))
 
 ;; Helm source for switching group in helm.
 (defvar helm-source-awesome-tab-group nil)
